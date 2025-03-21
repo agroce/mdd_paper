@@ -133,10 +133,21 @@
 Test driven development (TDD) is a controversial and interesting approach to
 software development; while many think of ``better tests'' as a
 primary \emph{purpose} of TDD, in practice the goal is as much to use
-tests to encourage continued progress in coding.  However, with a
-modest change to the process of TDD, the approach can further this
-psychological goal, and (it seems likely) end up with a genuniely
-better set of tests as well.
+tests to encourage continued progress in coding.   That goal however
+rests on the notion that TDD ensures tests are good enough to let you
+implement small new features and refactor code without undue fear of
+mistakes.  Unfortunately, TDD is not ``self-enforcing'' and standard
+TDD practice makes it easy to accidentally skip steps.  By integrating
+a phase of focused mutation testing into TDD, however, developers
+applying TDD can be sure they are not writing code that is not
+supported by the scaffolding of tests.  The incremental nature of TDD
+test and production code creation ensures that at no point will
+``fixing up'' the mutants be likely to overwhelm the developer, and so
+the final result will be tests with excellent code coverage and
+mutation score, without a painful effort to ``patch up'' an inadequate
+testing effort, and a TDD approach that includes automated checks that
+the letter and spirit of TDD are truly being respected, and the
+benefits of TDD presumably following in due course.
   \end{abstract}
 
 
@@ -147,10 +158,33 @@ better set of tests as well.
 \section{Introduction}
 
 The first question I should answer: given the abstract, which sounds
-like a fairly standard research proposal, why is this an Onward! Essay
+like a fairly standard research paper abstract, except for the part
+about some experimental evaluation, why is this an Onward! Essay
 and not a conventional research paper?
 
+\subsection{What is Test Driven Development?}
 
+Test Driven Development (henceforth TDD) has been defined many times,
+in many ways.  Even if you're familliar with TDD, I would like to
+revisit the foundations for a moment, because the proposal made here
+is formulated with respect to a particular conception of TDD.  Most
+definitions of TDD (including this one) properly present it as a
+\emph{series of steps to be followed in development}.
+
+\begin{enumerate}
+  \item Think of a behavior your software does not yet have,
+    but that you want it to have.
+    \item Add a test that would pass if that behavior was present, but
+      will not pass if it is not.
+    \item Run all your tests and see that the newly added test fails.
+    \item Make a \emph{small} change that makes the test pass.
+    \item Run all the tests; make sure they all succeed now.
+      \item Refactor to remove duplication/generally clean the code
+        from step 4 up so it doesn't make you ashamed of yourself.
+      \end{enumerate}
+
+I added the first step, because you can't really write a test until
+you've thought of something to test.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
