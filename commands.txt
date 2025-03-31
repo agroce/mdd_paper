@@ -1,0 +1,7 @@
+mutate src/LedDriver/LedDriver.c --cmd "gcc -c src/util/Utils.c src/LedDriver/LedDriver.c -I include/LedDriver/ -I include/util" --mutantDir LedDriver_mutants/
+analyze_mutants src/LedDriver/LedDriver.c "make -f MakefileUnity.mk" --mutantDir LedDriver_mutants/
+show_mutants notkilled.txt --sourceDir src/LedDriver/ --mutantDir LedDriver_ mutants | less
+
+mutate src/HomeAutomation/LightScheduler.c --cmd "gcc -c src/HomeAutomation/LightScheduler.c -I include/HomeAutomation/ -I include/util/"
+analyze_mutants src/HomeAutomation/LightScheduler.c "make -f MakefileUnity.mk" --mutantDir HomeAutomation_mutants/
+show_mutants notkilled.txt --sourceDir src/HomeAutomation/ --mutantDir HomeAutomation_mutants/ | less
