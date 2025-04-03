@@ -158,9 +158,74 @@ benefits of TDD presumably following in due course.
 \section{Introduction}
 
 The first question I should answer: given the abstract, which sounds
-like a fairly standard research paper abstract, except for the part
-about some experimental evaluation, why is this an Onward! Essay
+like a fairly standard software engineering research paper abstract,
+except for the missing part bragging
+about a positive experimental evaluation, why is this an Onward! Essay
 and not a conventional research paper?
+
+The answer is personal:  I thought of this idea a few years ago, and
+have thought about making it a full research project off and on since
+then, and I
+never managed to actually do so.  A real evaluation of this idea would
+require a good graduate student's devotion, and, more importantly,
+actual human-subjects experimentation work to arrive at even a
+speculative and provisional scientific evaluation of the idea's
+efficacy.  I can't think of a useful way to make a purely ``extract
+code from public repos and analyze it'' investigation, or (better yet)
+a purely mechanical experiment.  Perhaps in a few years it will be
+possible to just have LLMs do it all?
+
+I (read: ``my lab'') don't really do human subjects; I don't ever want do
+write IRB paperwork.  I do work with people who do human subjects,
+from time to time; so I could potentially convince one of those
+wonderful folks that this is a good project, and thus avoid doing IRB
+paperwork and still make this a ``real'' paper.
+
+But I don't have a huge committment to Test
+Driven Development to get me excited enough to try to talk someone
+else into spending valuable research productivity time on this idea; I've never used
+TDD in writing code myself, and I'm not sure if I think it's a good development
+practice.  Nobody I know and trust in the real software industry seems
+to do things in a TDD way, which is suggestive.  So it just doesn't
+seem worth it to commit to a serious Research Project, likely spanning
+over a year, to this idea.
+
+So why not do what we senior researchers usually do in this situation?
+Shelve the idea, perhaps mention it to one or two people, and let it
+basically die?  I've done this before; there are a good half-dozen
+implmentations of test generation ideas I think might be interesting
+or effective in my TSTL Python test generation tool, none of which
+ever became a paper.  They live only as obscure command line options
+to a tool increasingly few people are likely to ever use.  It's sad,
+but life is short, and I don't think any of those ideas are likely to
+be \emph{really} important, vs. somewhat, occasionally, useful.
+
+\subsubsection{Daniel Jackson Made Me Do It}
+
+I recently read Daniel Jackson's \emph{The Essence of Software}, which
+is a very enjoyable book.  The supposed topic of the book is an
+approach to design that I thought was interesting, but that also seems
+more appropriate to UI-heavy software for ``normal people'' than the
+kind of code analysis/test generation software I tend to write
+myself.  The real value of the book was, for me, twofold:  first, the
+long long set of ``notes'' after the main text is a delightful random
+walk through software engineering.  Second, Jackson's musings include
+a major theme:  we've become too careful in the software engineering
+research community.  Given the heroic (for lazy computer scientists,
+at least;
+obviously almost every research project in SE is a joke compared to
+the work of serious systems people, much less biologists or
+physicists) effort required for making Real Science that Has Six Good
+RQs and Makes it Past the ICSE Program Committee,   There was a time
+when SE (or formal methods, where I was living at that time) was far
+too accepting of a paper based on application of an approach to a
+single toy problem, plus a good writeup.  This was too lacking in
+rigor, and there was a very sensible effort to increase the level of
+experimental support for claims about software engineering.  I don't
+have a strong opinion on how this worked out for more methdological
+aspects of SE, but for the most part increased rigor was necessary to
+make work in more ``technical'' parts of SE, such as software testing,
+trustworthy.
 
 \subsection{What is Test Driven Development?}
 
