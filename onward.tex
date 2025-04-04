@@ -202,7 +202,7 @@ be \emph{really} important, vs. somewhat, occasionally, useful.
 
 \subsubsection{Daniel Jackson Made Me Do It}
 
-I recently read Daniel Jackson's \emph{The Essence of Software}, which
+I recently read Daniel Jackson's \emph{The Essence of Software}~\cite{essence}, which
 is a very enjoyable book.  The supposed topic of the book is an
 approach to design that I thought was interesting, but that also seems
 more appropriate to UI-heavy software for ``normal people'' than the
@@ -223,13 +223,35 @@ single toy problem, plus a good writeup.  This was too lacking in
 rigor, and there was a very sensible effort to increase the level of
 experimental support for claims about software engineering.  I don't
 have a strong opinion on how this worked out for more methdological
-aspects of SE, but for the most part increased rigor was necessary to
+aspects of SE, but for the most part the increased experimental
+validation (and, later, statistical sophistication, or at least competence) was necessary to
 make work in more ``technical'' parts of SE, such as software testing,
 trustworthy.
 
-\subsection{What is Test Driven Development?}
+However, this was not without a cost:  some of the most important and
+influential papers in SE, as Jackson points out, did not rest on a
+basis of experimental support, in part because they were more raw
+``ideas'' than a narrower scientific claim.
 
-Test Driven Development (henceforth TDD) has been defined many times,
+Now, many researchers take ideas that don't satsfy the current rules
+for \emph{proper} papers and turn them into blog posts or at least
+tweets.  I've done this.  But there's an argument that this limits the
+audience to people who already know who you are and watch what you
+say.  If your ideas are relevant to another community, one you aren't
+part of, this is likely to mean they never reach that audience.
+
+In the past I've written Onward! Essays when the topic was clearly not
+one suitable to a standard research paper.  This time, I'm writing an
+essay because that seems more responsible than writing a blog post,
+and a research paper minus the experimental evidence is just an
+essay.  The reader is free to try the idea out, with no guarantee that
+it will work, but really --- we know that's the case with most
+research, as well, except in the most unusual of circumstances.  So,
+onward to the idea.
+
+\section{What is Test Driven Development?}
+
+Test Driven Development (henceforth TDD) has been defined many times~\cite{beck2002test,astels2003test,TDDIBM,TDDAcademy},
 in many ways.  Even if you're familliar with TDD, I would like to
 revisit the foundations for a moment, because the proposal made here
 is formulated with respect to a particular conception of TDD.  Most
@@ -246,10 +268,69 @@ definitions of TDD (including this one) properly present it as a
     \item Run all the tests; make sure they all succeed now.
       \item Refactor to remove duplication/generally clean the code
         from step 4 up so it doesn't make you ashamed of yourself.
+        \item Repeat (go to 1).  Do not, generally, make changes other than by
+          this process!
       \end{enumerate}
 
 I added the first step, because you can't really write a test until
 you've thought of something to test.
+
+Why write software in this restrictive way?  The benefits proposed
+vary, but I think can be summarized as:
+
+\begin{itemize}
+  \item By making such small steps, you always have the confidence to
+    move forwards.  This may not be the first thing most people think
+    of with TDD, but Beck's extremely influential book~\cite{beck2002test} really focuses
+    on this.  You never get stuck!  You always have confidence!  You
+    are making progress at all times.  Even if you can't actually
+    implement the funcitonality at the moment (you haven't figure out
+    how), TDD lets you write a \emph{useful test} and a \emph{passing,
+      but fake, implementation} and thus have accomplished something.
+    Beck thus offers strategies for getting from a fake (e.g., return a
+    constant) implementation to a real implementation.
+    \item Beck implies and everyone else seems to agree that this
+      confidence isn't \emph{just} about the small implementation steps; it's about
+      the fact that those steps are accompanied by tests that you know
+      will tell you if you mess things up.  You can write code even
+      when in doubt because not only are you tackling small pieces you
+      should be able to get right, you have tests that you \emph{know}
+      will let you know if you don't get it right.
+      \item More obviously, should end up with a very good set of unit
+        tests if there's nothing in the code you didn't write a test
+        for, first.  How could big holes arise in your testing?  You
+        should, for example, have very high code coverage (if you
+        don't, what's going on?)
+        \item Thinking about testing \emph{first} should improve
+          testability; you won't implement functionality in a hard to
+          test way if you're forced to write the test before the
+          implementation.
+          \item Similarly, API users will be in your mind: you'll
+            always use any APIs you make before you implement them.
+            There's a strong expectation in the literature that this
+            will produce better overall designs.
+            \end{itemize}
+
+My personal experience with TDD consists of:  reading Beck's book and
+Grenning's excellent book on TDD for embedded systems~\cite{grenning},
+plus a few random papers on the topic (I have forgotten which ones), trying it
+out for a few toy Python examples, and, finally, requiring students taking CS 361 at
+Oregon State (the first of a two-term software engineering sequence)
+to use it to implement Parnas' KWIC (Key Word in Context) example~\cite{parnas1972criteria}.
+The students hated it, and thought I was a maniac to insist on their
+following strict TDD discipline (and enforcing standard naming conventions
+to make the resulting code easy to analyze for coverage and (to get
+ahead of ourselves) mutation score).  It's not a way I personally
+would write code, in part because of the odd, niche types of code I
+write (throwaway scripts for analyzing experimental results, and
+testing tools).  On the other hand, the idea of TDD strikes me as
+attractive:  I think most software would benefit from better (unit)
+tests, of course, I'm a ``testing guy''; writing tests before
+implementation to ensure testability strikes me as a really good idea
+given all the problems code not designed to be testable can cause (for
+one thing, code not designed to be testable also, in my experience,
+has limited debuggability, extensibility, and maintainability).
+
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
