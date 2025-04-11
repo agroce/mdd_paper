@@ -332,6 +332,78 @@ one thing, code not designed to be testable also, in my experience,
 has limited debuggability, extensibility, and maintainability).
 
 
+\subsection{What's Wrong With Test-Driven Development?}
+
+I think one thing is fairly clear:  writing code according to
+faithful, careful, TDD practices will guarantee very high code
+coverage in the unit tests.  The essence of TDD (as I see it) is that
+\emph{you are not allowed to write a line of code unless you have a
+  test that tests that line of code.}  It is difficult to see how
+someone practicing TDD manages to produce code that is not covered by
+the tests.  The refactoring step appears dangerous but if it is truly
+refactoring (even extending the idea to changes such as replacing a
+constant with the real computation) the semantics imposed by the tests
+should be preserved, and no new behaviors introduced.  At most, very
+small gaps in coverage should be possible, and large gaps simply
+indicate ``this was not really TDD.''
+
+From my perspective, the problem is that this \emph{doesn't mean the
+  code is extremely well tested}, which seems to be one of the core
+(at least implicit) claims of TDD.  Software testing people know that
+while code coverage is generally \emph{necessary} for good testing, it
+is far from \emph{sufficient}.  Now, the most glaring risk of code
+coverage \emph{is} obviated by TDD:  it is very hard, when using TDD's
+rule that \emph{first, you must see the test fail}, to write code
+that is run by tests, but not actually \emph{checked} for any
+particular behavior~\cite{Schuler2011AssessingOQ}.  For the most part,
+again, code is being written \emph{so that a test will pass, which is
+  currently failing}.
+
+The problem is that checking one behavior of a ``piece'' of code
+doesn't mean you are checking all the desired behaviors; TDD forces
+you to write \emph{one} test that fails, that corresponds to every
+code-writing step.  Even at the fine granularity of TDD, however, most
+code has more than one expected behavior.  For instance, TDD will be
+naturally inclined to check that added code does something; it will be
+naturally disinclined (because of the nature of which unit tests are
+easiest to write, and the
+derivation of the original failing test from a desire to add some new
+functionality, in most cases) to check that it doesn't do anythng
+undesirable, and that is satisfies more esoteric conditions ``off the
+path'' of developing functionality: e.g., that it fails in the ``right'' way when called with
+invalid inputs.
+
+It seems plausible to reformulate one underlying goal of TDD as
+``ensure that after every step of coding, the functionality thus far
+implemented is tested solidly enough that changes can be made in the
+expectation that bugs will have a hard time getting past the tests.''
+Code coverage is guaranteed to be high, but the implied syllogism that
+therefore this goal will be met.  However, code coverage is not the
+only way to measure test effectiveness!  A great many software testing
+researchers~\cite{}, and a few high-profile software companies (e.g., Google,
+Meta, Amazon~\cite{}) believe that mutation testing can provide a more
+powerful guarantee of test quality.  In mutation testing, the ability
+of tests to detect bugs is measured by injecting a large number of
+synthetic bugs, and seeing if they are indeed detected.  In mutation
+testing lingo, a detected bug is ``killed'' and an undetected bug is
+``not killed.''  Unkilled mutants are to mutation testing as uncovered
+lines of code are to code coverage:  the things a developer aiming at
+good tests should examine and probably fix.
+
+TDD probably, by construction, ensures high enough coverage that
+measuring coverage is likely to be fairly useless; the link betwen TDD
+and good mutation score, however, seems indirect enough that
+\emph{mutation score can serve as a good way to inform TDD
+  practitioners when their tests are not strong enough.}   Because TDD
+ensures good coverage, and probably ensures at least \emph{fairly
+  good} mutation score, the primary human cost of mutation testing is
+reduced:  well-done TDD should produce few ``unkilled'' mutants for
+developers to reivew.  Add that TDD works by adding code in relatively
+small steps, and apply mutation only to the file in which the newly
+added code appears, and the other persistent problem with mutation testing (lack of
+scalability when a very large number of mutants are produced) is also
+likely tamed.
+
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
 
