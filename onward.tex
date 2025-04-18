@@ -27,6 +27,8 @@
 \usepackage{code}
 \usepackage{graphicx}
 \usepackage{placeins}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -125,7 +127,7 @@
 \ccsdesc[500]{Software and its engineering~Dynamic analysis}
 \ccsdesc[500]{Software and its engineering~Software testing and debugging}
 
-\keywords{software testing software verification, proof, counterexample, tests}
+\keywords{test driven development, mutation analysis}
 
 
 
@@ -146,7 +148,7 @@ test and production code creation ensures that at no point will
 the final result will be tests with excellent code coverage and
 mutation score, without a painful effort to ``patch up'' an inadequate
 testing effort, and a TDD approach that includes automated checks that
-the letter and spirit of TDD are truly being respected, and the
+the letter and spirit of TDD are truly being respected, with the
 benefits of TDD presumably following in due course.
   \end{abstract}
 
@@ -184,8 +186,8 @@ paperwork and still make this a ``real'' paper.
 But I don't have a huge committment to Test
 Driven Development to get me excited enough to try to talk someone
 else into spending valuable research productivity time on this idea; I've never used
-TDD in writing code myself, and I'm not sure if I think it's a good development
-practice.  Nobody I know and trust in the real software industry seems
+TDD in writing code myself, and I'm not sure I even believe it's a good development
+practice!  Nobody I know and trust in the real software industry seems
 to do things in a TDD way, which is suggestive.  So it just doesn't
 seem worth it to commit to a serious Research Project, likely spanning
 over a year, to this idea.
@@ -194,20 +196,23 @@ So why not do what we senior researchers usually do in this situation?
 Shelve the idea, perhaps mention it to one or two people, and let it
 basically die?  I've done this before; there are a good half-dozen
 implmentations of test generation ideas I think might be interesting
-or effective in my TSTL Python test generation tool, none of which
+or effective in my TSTL Python test generation tool~\cite{tstlsttt}, none of which
 ever became a paper.  They live only as obscure command line options
 to a tool increasingly few people are likely to ever use.  It's sad,
 but life is short, and I don't think any of those ideas are likely to
 be \emph{really} important, vs. somewhat, occasionally, useful.
+Perhaps that's the right approach with Mutation Driven Development, too.
 
-\subsubsection{Daniel Jackson Made Me Do It}
+\subsection{Daniel Jackson Made Me Do It}
 
 I recently read Daniel Jackson's \emph{The Essence of Software}~\cite{essence}, which
 is a very enjoyable book.  The supposed topic of the book is an
 approach to design that I thought was interesting, but that also seems
 more appropriate to UI-heavy software for ``normal people'' than the
 kind of code analysis/test generation software I tend to write
-myself.  The real value of the book was, for me, twofold:  first, the
+myself, or the kind of embedded or systems code (e.g. file systems and
+compilers) I
+like to test.  The real value of the book was, for me, twofold:  first, the
 long long set of ``notes'' after the main text is a delightful random
 walk through software engineering.  Second, Jackson's musings include
 a major theme:  we've become too careful in the software engineering
@@ -216,7 +221,12 @@ at least;
 obviously almost every research project in SE is a joke compared to
 the work of serious systems people, much less biologists or
 physicists) effort required for making Real Science that Has Six Good
-RQs and Makes it Past the ICSE Program Committee,   There was a time
+RQs and Makes it Past the ICSE Program Committee, we tend to drop
+marginal ideas, especially if we as researchers are not inclined to be
+managers to an army of graduate students, but
+less-productive/more-hands-on (here's looking at myself in a mirror).
+
+There was a time
 when SE (or formal methods, where I was living at that time) was far
 too accepting of a paper based on application of an approach to a
 single toy problem, plus a good writeup.  This was too lacking in
@@ -226,9 +236,12 @@ have a strong opinion on how this worked out for more methdological
 aspects of SE, but for the most part the increased experimental
 validation (and, later, statistical sophistication, or at least competence) was necessary to
 make work in more ``technical'' parts of SE, such as software testing,
-trustworthy.
+trustworthy.  In a minor way, I think I helped encourage this trend in
+software testing, especialy under the influence of an unusually
+statistics-savvy and very capable graduate student, Rahul Gopinath
+(now faculty at the University of Sydney).
 
-However, this was not without a cost:  some of the most important and
+However, this increased rigor was not without a cost:  some of the most important and
 influential papers in SE, as Jackson points out, did not rest on a
 basis of experimental support, in part because they were more raw
 ``ideas'' than a narrower scientific claim.
@@ -249,7 +262,35 @@ it will work, but really --- we know that's the case with most
 research, as well, except in the most unusual of circumstances.  So,
 onward to the idea.
 
+
+
 \section{What is Test Driven Development?}
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{\linewidth}{!}{%
+    \begin{tikzpicture}[
+      font=\large,
+      node distance=0.8cm,
+      box/.style={rectangle, draw, rounded corners, text centered, minimum width=2.5cm, minimum height=0.8cm},
+      arrow/.style={thick,->,>=stealth}
+    ]
+      \node (write) [box] {Write a new test};
+      \node (fail) [box, below left=of write] {{\bf IT FAILS}};
+      \node (implement) [box, below right=of fail] {Simple implementation};
+      \node (pass) [box, below right=of write] {{\bf ALL TESTS PASS}};
+      \node (refactor) [box, below right=of pass] {Refactor/cleanup};
+
+      \draw [arrow] (write) -- (fail);
+      \draw [arrow] (fail) -- (implement);
+      \draw [arrow] (implement) -- (pass);
+      \draw [arrow] (pass) -- (refactor);
+      \draw [arrow] (refactor) to[out=30,in=0] (write);
+    \end{tikzpicture}%
+  }
+  \caption{Test-Driven Development Loop}
+  \label{fig:tdd}
+\end{figure}
 
 Test Driven Development (henceforth TDD) has been defined many times~\cite{beck2002test,astels2003test,TDDIBM,TDDAcademy},
 in many ways.  Even if you're familliar with TDD, I would like to
@@ -273,7 +314,8 @@ definitions of TDD (including this one) properly present it as a
       \end{enumerate}
 
 I added the first step, because you can't really write a test until
-you've thought of something to test.
+you've thought of something to test.  The basic process is as shown in Figure~\ref{fig:tdd}.
+
 
 Why write software in this restrictive way?  The benefits proposed
 vary, but I think can be summarized as:
@@ -284,8 +326,9 @@ vary, but I think can be summarized as:
     of with TDD, but Beck's extremely influential book~\cite{beck2002test} really focuses
     on this.  You never get stuck!  You always have confidence!  You
     are making progress at all times.  Even if you can't actually
-    implement the funcitonality at the moment (you haven't figure out
-    how), TDD lets you write a \emph{useful test} and a \emph{passing,
+    implement the funcitonality at the moment (you haven't figured out
+    how), TDD lets you write a \emph{useful test} and gives you
+    permission to produce a \emph{passing,
       but fake, implementation} and thus have accomplished something.
     Beck thus offers strategies for getting from a fake (e.g., return a
     constant) implementation to a real implementation.
@@ -296,7 +339,7 @@ vary, but I think can be summarized as:
       when in doubt because not only are you tackling small pieces you
       should be able to get right, you have tests that you \emph{know}
       will let you know if you don't get it right.
-      \item More obviously, should end up with a very good set of unit
+      \item More obviously, you should end up with a very good set of unit
         tests if there's nothing in the code you didn't write a test
         for, first.  How could big holes arise in your testing?  You
         should, for example, have very high code coverage (if you
@@ -307,32 +350,41 @@ vary, but I think can be summarized as:
           implementation.
           \item Similarly, API users will be in your mind: you'll
             always use any APIs you make before you implement them.
+            This is why in strict TDD you write the test in such a way
+            that it \emph{initially doesn't even compile} --- you
+            don't get to make the {\tt .h} file then a test to fit it,
+            you always see the signature/types/parameters ``in action''
+            before they are even defined.
             There's a strong expectation in the literature that this
             will produce better overall designs.
             \end{itemize}
 
-My personal experience with TDD consists of:  reading Beck's book and
+My personal experience with TDD consists of:  (1) reading Beck's book
+as well as
 Grenning's excellent book on TDD for embedded systems~\cite{grenning},
-plus a few random papers on the topic (I have forgotten which ones), trying it
-out for a few toy Python examples, and, finally, requiring students taking CS 361 at
+plus a few random papers on the topic (I have forgotten which ones),
+(2) trying it
+out for a few toy Python examples, and, (3) finally, requiring students taking CS 361 at
 Oregon State (the first of a two-term software engineering sequence)
 to use it to implement Parnas' KWIC (Key Word in Context) example~\cite{parnas1972criteria}.
 The students hated it, and thought I was a maniac to insist on their
 following strict TDD discipline (and enforcing standard naming conventions
 to make the resulting code easy to analyze for coverage and (to get
-ahead of ourselves) mutation score).  It's not a way I personally
+ahead of ourselves) mutation score)\footnote{See the most negative comment here:
+  \url{https://www.ratemyprofessors.com/professor/1807710}; that
+  student was not unique, though I hope in the minority.}.  It's not a way I personally
 would write code, in part because of the odd, niche types of code I
 write (throwaway scripts for analyzing experimental results, and
 testing tools).  On the other hand, the idea of TDD strikes me as
 attractive:  I think most software would benefit from better (unit)
-tests, of course, I'm a ``testing guy''; writing tests before
+tests, of course --- I'm a ``testing guy''; writing tests before
 implementation to ensure testability strikes me as a really good idea
 given all the problems code not designed to be testable can cause (for
 one thing, code not designed to be testable also, in my experience,
 has limited debuggability, extensibility, and maintainability).
 
 
-\subsection{What's Wrong With Test-Driven Development?}
+\section{So What's Wrong With Test-Driven Development?}
 
 I think one thing is fairly clear:  writing code according to
 faithful, careful, TDD practices will guarantee very high code
@@ -373,6 +425,8 @@ undesirable, and that is satisfies more esoteric conditions ``off the
 path'' of developing functionality: e.g., that it fails in the ``right'' way when called with
 invalid inputs.
 
+\subsection{Enter the Mutants!}
+
 It seems plausible to reformulate one underlying goal of TDD as
 ``ensure that after every step of coding, the functionality thus far
 implemented is tested solidly enough that changes can be made in the
@@ -380,8 +434,8 @@ expectation that bugs will have a hard time getting past the tests.''
 Code coverage is guaranteed to be high, but the implied syllogism that
 therefore this goal will be met.  However, code coverage is not the
 only way to measure test effectiveness!  A great many software testing
-researchers~\cite{}, and a few high-profile software companies (e.g., Google,
-Meta, Amazon~\cite{}) believe that mutation testing can provide a more
+researchers~\cite{JustMut,CleanCode,Discontents,MutationSurvey}, and a few high-profile software companies (e.g., Google,
+and Meta~\cite{PetrovicMutationGoogle,BellerFacebookMutation}) believe that \emph{mutation testing}~\cite{demillo1978hints,budd1979mutation} can provide a more
 powerful guarantee of test quality.  In mutation testing, the ability
 of tests to detect bugs is measured by injecting a large number of
 synthetic bugs, and seeing if they are indeed detected.  In mutation
@@ -397,12 +451,262 @@ and good mutation score, however, seems indirect enough that
   practitioners when their tests are not strong enough.}   Because TDD
 ensures good coverage, and probably ensures at least \emph{fairly
   good} mutation score, the primary human cost of mutation testing is
-reduced:  well-done TDD should produce few ``unkilled'' mutants for
+reduced:  well-done TDD should produce few unkilled mutants for
 developers to reivew.  Add that TDD works by adding code in relatively
-small steps, and apply mutation only to the file in which the newly
+small steps, and apply mutation only to the file(s) in which the newly
 added code appears, and the other persistent problem with mutation testing (lack of
 scalability when a very large number of mutants are produced) is also
-likely tamed.
+likely tamed: if you are doing TDD right, you should not be modifying
+many implementation files at once; in fact, you should probably only
+be modifying one at a time, most of the time.
+
+Thus we have a new, very slightly modified, approach to TDD, shown in
+Figure~\ref{fig:mdd}.
+
+\begin{figure}[h!]
+  \centering
+  \resizebox{\linewidth}{!}{%
+    \begin{tikzpicture}[
+      font=\large,
+      node distance=0.8cm,
+      box/.style={rectangle, draw, rounded corners, text centered, minimum width=2.5cm, minimum height=0.8cm},
+      arrow/.style={thick,->,>=stealth}
+    ]
+      \node (write) [box] {Write a new test};
+      \node (fail) [box, below left=of write] {{\bf IT FAILS}};
+      \node (implement) [box, below right=of fail] {Simple implementation};
+      \node (pass) [box, below right=of write] {{\bf ALL TESTS PASS}};
+      \node (refactor) [box, below right=of pass] {Refactor/cleanup};
+      \node (mutants) [box, below right=of refactor] {{\bf CLEAN YOUR MUTANTS}};
+
+      \draw [arrow] (write) -- (fail);
+      \draw [arrow] (fail) -- (implement);
+      \draw [arrow] (implement) -- (pass);
+      \draw [arrow] (pass) -- (refactor);
+      \draw [arrow] (refactor) -- (mutants);      
+      \draw [arrow] (mutants) to[out=30,in=0] (write);
+    \end{tikzpicture}%
+  }
+  \caption{Test-Driven Development Loop}
+  \label{fig:mdd}
+\end{figure}
+
+What does it mean to ``clean your mutants?''  It means that you 1) run
+mutation testing \emph{on the file(s) you modified to produce the
+  simple implementation} and 2) ensure that every mutant that is not
+killed has been inspected and rendered ``clean.''  A killed mutant
+(one detected by your tests) is, by definition, clean.
+
+Therefore, one easy way to make a mutant clean is to see that
+it indicates a weakness in your testing, and change the tests so it
+becomes a killed mutant.  You'll
+get to see an inverted version of part of the TDD loop while doing this:  the
+modified tests will start failing for the mutated code, once you add power to
+the tests, but  they will still pass for the code you wrote for your
+actual implementation.
+
+In some cases, you will see that the mutant is semantically equivalent
+to the correct code: no reasonable test will ever be able to detect
+this change.  It's really just an alternative (perhaps ugly)
+implementation.  In this case, you render the mutant clean by
+inspecting it.  Once in a while, you might even refactor the
+code to remove the annoying mutant (perhaps an even cleaner implementation
+wouldn't have this variant?  working at the very small scope of TDD
+does seem to give you the freedom to at least consider such
+detail-work).  In other cases, you'll have to revisit these mutants
+every time you touch these files.  That may be annoying, but it also
+means if you were wrong about the semantic equivalence, you get several
+chances to notice your mistake.
+
+Calling this new version of TDD ``mutation driven development'' is, frankly,
+a bit much.  The new step is intended to be fairly easy to apply, and
+to leave the basic structure of TDD unchanged.  My defenses for
+the name are
+twofold:  first, it sounds nice, and emphasizes the new idea.  Second,
+I think there may be a real  argument that ``Test'' in Test Driven Development
+is correct but not quite right; the real goal is to drive development
+by ``small changes, likely to inflict only small, easily debugged and understood, semantic harm'' ---
+which sounds a lot like driving development by mutants.  The tests are
+there to make sure the changes really are ``mostly harmless'' as Douglas
+Adams might put it; the tests are put in first because you always put
+in a safety net \emph{before} you start walking the tightrope.  But
+the small scope, easily debugged, carefully constrained, changes are
+the real focus, in this vision of TDD, which I think fits with Beck's
+original, essentially psychological, argument.  I love tests!  But
+tests are a means to an end, in TDD, though also extremely useful in
+the end for other reasons.  MDD's purpose is to make sure the
+``mutants'' to the code under development aren't simply ``mostly''
+harmless but ``almost guaranteed to be entirely harmless.''
+
+\section{Is MDD A Good Idea?}
+
+
+\begin{figure*}[t]
+  {\scriptsize
+\begin{verbatim}
+mutate src/LedDriver/LedDriver.c --cmd "gcc -c src/util/Utils.c src/LedDriver/LedDriver.c -I include/LedDriver/ -I include/util" --mutantDir LedDriver_mutants/
+analyze_mutants src/LedDriver/LedDriver.c "make -f MakefileUnity.mk" --mutantDir LedDriver_mutants/
+show_mutants notkilled.txt --sourceDir src/LedDriver/ --mutantDir LedDriver_ mutants | less
+\end{verbatim}
+    }
+  \caption{Commands for mutation testing of LedDriver.c}
+  \label{fig:led}
+\end{figure*}
+
+I think every developer serious about avoiding bugs should be running
+mutation analysis on code as they develop and test it!  So in that
+sense, I axiomatically think adding this to TDD would be great, if
+you're going to do TDD; you should do this in any case, for code where
+you want to make sure you have good tests.
+
+Not everyone is going to be so inherently favorable to mutants,
+though, and as I see it the success or failure of the idea really
+rests on two empirical claims:
+
+\begin{enumerate}
+  \item TDD ensures high enough code coverage and good enough basic
+    checking of functionality that looking at unkilled mutants is not
+    a major burden on developers.
+    \item TDD does not ensure such high quality tests that mutants
+      never expose a weakness in testing.
+    \end{enumerate}
+
+    As I said above, validating these assumptions empirically is not
+    something I've set out to do.  However, I don't want to leave you,
+    the reader, without any evidence that this pair of hypotheses
+    \emph{might well} be true.  Before I wrote this paper, I decided
+    to take two examples of TDD-in-action and check if my claims
+    held.  Two is a tiny sample size, and I didn't randomly select
+    examples, so this has \emph{no scientific validity}.  However, the
+    results convinced me it was worth writing this paper.
+
+    I decided the best way to see if ``good'' TDD might benefit was to
+    look at examples of people showing how TDD works.  If TDD-produced
+    code by people \emph{showing off the process} had too many
+    unkilled mutants for practical application, then MDD is probably
+    overly burdensome (and, frankly, I wonder if TDD really works very
+    well at the job of producing decent tests); if ``exemplary'' TDD
+    on the other hand lacked interesting unkilled mutants, MDD is
+    possibly useless, because the benefits will be limited.  You'll
+    have to clean many mutants before you find any that actually
+    demonstrate weak testing.
+
+    I first looked for a blog post showing TDD in action for Python.
+    The first one that came up in search results looked promising:
+    \url{https://pytest-with-eric.com/tdd/pytest-tdd/}.  I took the
+    code, cleaned it up (the blog post has some code with typos) and
+    followed along with the TDD example, applying mutation testing at
+    each stopping point (just before a new test was added).
+
+    The versions I produced are available in github
+    (\url{https://github.com/agroce/mdd/tree/main/pytestwitheric}).  I
+    used my own mutation testing tool, the Universal
+    Mutator~\cite{SyntaxUM}
+    (\url{https://github.com/agroce/universalmutator}, to generate
+    mutants.
+
+    If you want to follow along at home, the easiest way to do so is
+    to download the docker image in which I carried out my
+    ``experiments.''
+
+ \begin{code}
+ docker pull agroce/mdd
+ docker run -it agroce/mdd
+ cd ~/mdd/pytestwitheric/
+ \end{code}
+
+    Then go into any directory, say {\tt v3}, and type:
+
+ \begin{code}
+ cd v3
+ mutate string\_manipulator.py
+ analyze\_mutants string\_manipulator.py "pytest"
+\end{code}
+
+You'll see the universal mutator tool producing a set of valid mutants
+of the version of the code, followed by actual mutation testing.  For
+the first version, {\tt v1}, there are no mutants.  Clean by the
+empty set!  For version {\tt v2}, there are two mutants, and both are
+detected.  For version {\tt v3}, there are six mutants, again all
+detected. For {\tt v4} the number of mutants grows to nine, still all
+detected.  With {\tt v5} we get fifteen mutants (for about ten lines
+of code), still all detected.  So far, we've gained nothing, but we've
+also done no real additional work (running the mutants takes less than 4
+seconds, inspecting the result in case of 100\% killed mutants is trivial).
+
+And then with {\tt v6}, we see that three mutants are not killed. Our
+score drops to 87.5\% killed mutants.  The three surviving mutants are
+all similar, so we can examine only the first one:
+
+{\scriptsize
+\begin{code}
+show\_mutants notkilled.txt 
+
+MUTANT \#1:
+string\_manipulator.mutant.18.py: ./string\_manipulator.py:13
+*** Original
+--- Mutant
+***************
+*** 10,15 ****
+          if not my\_string:  
+              return "String is empty"  
+          if not isinstance(my\_string, str):  
+!             return "Invalid input"  
+          new\_string = my\_string.replace(pattern, "")  
+          return new\_string
+--- 10,15 ----
+          if not my\_string:  
+              return "String is empty"  
+          if not isinstance(my\_string, str):  
+!             return ""  
+          new\_string = my\_string.replace(pattern, "")  
+          return new\_string
+        \end{code}
+      }
+
+ We wrote code for the case where an input to our function isn't a
+ string, but we didn't write a test checking that this does what we
+ expect when we pass a non-string.  The test is easy to add:
+
+ \begin{code}
+def test\_remove\_pattern\_type\_int():
+     sm = StringManipulator()
+     res = sm.remove\_pattern(3, "Eric")
+     assert res == "Invalid input"
+   \end{code}
+
+   Once we add it (in my version {\tt v6.FIX}), we're back to 100\%
+   killed mutants.  Great!
+
+   This is simply a toy example from a blog post; what about more
+   ``respectable'' demonstration of TDD?
+
+   Taking the first example from the excellent Grenning
+   book~\cite{grenning}, we can look at the final version of the code
+   and tests for a simple LED driver.
+
+\begin{code}
+cd ~/tddec-code/code
+\end{code}
+
+Producing mutants and analyzing them is now more complex
+(Figure~\ref{fig:led}).  We kill almost 90\% of the 98 generated
+mutants.  But, importantly, we don't kill them all.  The few mutants
+remaining show that, despite the tests including a number of checks
+for correct behavior when LED numbers are out of bounds, these tests
+\emph{don't catch all the possible cases}:  the ten mutants not killed
+show that some bounds checks are indeed tested, but others are not;
+changing the {\tt enum} to incorrectly label the LEDs also can get
+past the tests (wrong numbering is a problem Grenning specifically
+calls out).  The tests \emph{mostly} catch these problems, but they
+don't catch \emph{all} of them.  And as far as I can tell, the mutants
+not killed all indicate these exact problems.
+
+Perhaps these examples aren't typical, but I think they are
+sufficiently compelling to make a case for trying out MDD, if you
+currently practice TDD.  Let me know if it works for you (or if you
+are an eager graduate student dying to turn this sketchy idea into a ``real'' paper)!
+
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}

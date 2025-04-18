@@ -104,6 +104,15 @@ keywords = {test-driven development, pedagogy, empirical survey}
   }
   
 
+@article{Schuler2011AssessingOQ,
+  title={Assessing Oracle Quality with Checked Coverage},
+  author={David Schuler and Andreas Zeller},
+  journal={2011 Fourth IEEE International Conference on Software Testing, Verification and Validation},
+  year={2011},
+  pages={90-99},
+  url={https://api.semanticscholar.org/CorpusID:12581175}
+}
+
 @misc{buterin2013whitepaper,
   author = {Vitalik Buterin},
   title = {Ethereum: A Next-Generation Smart Contract and Decentralized Application Platform},
@@ -406,6 +415,29 @@ bibsource = {DBLP, http://dblp.uni-trier.de}
   year={1971},
   publisher={ACM New York, NY, USA}
 }
+
+@book{budd1979mutation,
+  title={Mutation analysis},
+  author="Timothy Budd and Richard J. Lipton and Richard A DeMillo and Frederick G Sayward",
+  year={1979},
+  publisher={Yale University, Department of Computer Science}
+}
+
+
+@article{demillo1978hints,
+  author = {DeMillo, R. A. and Lipton, R. J. and Sayward, F. G.},
+  journal = {IEEE Computer},
+  title = {Hints on {Test} Data Selection: Help for the Practicing Programmer},
+  year = {1978},
+  volume = {11},
+  number = {4},
+  pages = {34--41},
+  doi={10.1109/C-M.1978.218136},
+  month = {Apr},
+}
+
+
+
 
 @misc{gpttestgen,
       title={No More Manual Tests? Evaluating and Improving ChatGPT for Unit Test Generation}, 
@@ -859,6 +891,17 @@ keywords = {fuzz testing, compiler testing, compiler defect, test-case reduction
  year = {2018},
 }
 
+@INPROCEEDINGS{CleanCode,
+  author={Chekam, Thierry Titcheu and Papadakis, Mike and Le Traon, Yves and Harman, Mark},
+  booktitle={2017 IEEE/ACM 39th International Conference on Software Engineering (ICSE)}, 
+  title={An Empirical Study on Mutation, Statement and Branch Coverage Fault Revelation That Avoids the Unreliable Clean Program Assumption}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={597-608},
+  keywords={Testing;Java;Correlation;Robustness;Standards;Tools;Mutation testing;test effectiveness;code coverage;real faults;test adequacy},
+  doi={10.1109/ICSE.2017.61}}
+
 @inproceedings{Discontents,
 author = {Groce, Alex and Alipour, Mohammad Amin and Gopinath, Rahul},
 title = {Coverage and Its Discontents},
@@ -1176,6 +1219,47 @@ pages = {105--156}
   year = "2004",
   pages = "168--176"
 }
+
+@inproceedings{PetrovicMutationGoogle,
+    author = "Petrovic, Goran and Ivankovic, Marko",
+    title = "State of Mutation Testing at {Google}",
+    booktitle = "International Conference on Software Engineering: Software Engineering in Practice",
+    series = "ICSE '18",
+    year = "2018",
+    doi = "10.1145/3183519.3183521",
+    pages = "163--171"
+}
+
+@inproceedings{JustMut,
+author = {Petrovi\'{c}, Goran and Ivankovi\'{c}, Marko and Fraser, Gordon and Just, Ren\'{e}},
+title = {Does mutation testing improve testing practices?},
+year = {2021},
+isbn = {9781450390859},
+publisher = {IEEE Press},
+url = {https://doi.org/10.1109/ICSE43902.2021.00087},
+doi = {10.1109/ICSE43902.2021.00087},
+abstract = {Various proxy metrics for test quality have been defined in order to guide developers when writing tests. Code coverage is particularly well established in practice, even though the question of how coverage relates to test quality is a matter of ongoing debate. Mutation testing offers a promising alternative: Artificial defects can identify holes in a test suite, and thus provide concrete suggestions for additional tests. Despite the obvious advantages of mutation testing, it is not yet well established in practice. Until recently, mutation testing tools and techniques simply did not scale to complex systems. Although they now do scale, a remaining obstacle is lack of evidence that writing tests for mutants actually improves test quality. In this paper we aim to fill this gap: By analyzing a large dataset of almost 15 million mutants, we investigate how these mutants influenced developers over time, and how these mutants relate to real faults. Our analyses suggest that developers using mutation testing write more tests, and actively improve their test suites with high quality tests such that fewer mutants remain. By analyzing a dataset of past fixes of real high-priority faults, our analyses further provide evidence that mutants are indeed coupled with real faults. In other words, had mutation testing been used for the changes introducing the faults, it would have reported a live mutant that could have prevented the bug.},
+booktitle = {Proceedings of the 43rd International Conference on Software Engineering},
+pages = {910–921},
+numpages = {12},
+keywords = {code coverage, fault coupling, mutation testing},
+location = {Madrid, Spain},
+series = {ICSE '21}
+}
+
+
+@inproceedings{BellerFacebookMutation,
+  author    = {Beller, Moritz and Wong, Chu{-}Pan and Bader, Johannes and Scott, Andrew and Machalica, Mateusz and Chandra, Satish and Meijer, Erik},
+  title     = {What It Would Take to Use Mutation Testing in Industry - {A} Study at Facebook},
+  booktitle = {International Conference on Software Engineering: Software Engineering in Practice},
+  pages     = {268--277},
+  doi={10.1109/ICSE-SEIP52600.2021.00036},
+  series = {ICSE '18},
+  publisher = {{IEEE}},
+  year      = {2021},
+}
+
+
 
 @article{de1979social,
   title={Social processes and proofs of theorems and programs},
