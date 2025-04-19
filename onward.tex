@@ -717,7 +717,7 @@ mostly (I would guess, I don't read much TDD literature) ``process''
 people.  I think ``process'' people who care about TDD probably think
 a lot about testing, but don't think very deeply about code coverage
 metrics (beyond the basic ``let's see what ran'') or the ``oracle
-problem'' because these ideas are mostly siloed into the ``tools and
+problem''~\cite{staats2011programs,oracleMcMinn} because these ideas are mostly siloed into the ``tools and
 automated test generation'' part of the larger SE world.  I happened
 to start thinking about TDD because while I usually taught CS 362, the
 ``testing and debugging'' class at Oregon State, one semester I was
@@ -725,14 +725,20 @@ asked to do CS 361, the ``design and process'' class.  TDD seemed like
 the most ``hardcore testing people'' thing to learn for that class,
 and sounded interesting, even if I had no particular interest in
 agile/XP/any of that ``stuff.''  I didn't know at the time Grenning
-had a good book applying all this to the embedded world, which I
+had a very good book applying all this to the embedded world, which I
 \emph{did} care about.
 
 Because I'm always thinking about mutation and mutants, I wondered if
 TDD gave rise to really great mutation scores, since it not only
 encourages coverage, but pushes for code to be written in tandem with
-good functionality probes.  That mildly ``across disciplines'' thought
-gave rise to the notion of MDD.
+good functionality probes.  That mildly ``across disciplines''
+thought, following an inspection of the mutation scores for 80+
+students over their TDD versions of KWIC,
+gave rise to the notion of MDD.  But TDD is in the ``process'' and
+``people'' and ``agile'' boxes, not in any of my boxes (``test
+generation'', ``fuzzing'', ``test suite evaluation measures''), so I
+put it aside.  And had I not read Jackson's book, likely MDD's only
+existence would be as a thing I occasionally mentioned to people I knew.
 
 In her fascinating new history of the Renaissance~\cite{palmer}, Ada
 Palmer notes that ``major discoveries often come from someone studying
