@@ -74,8 +74,8 @@
 \acmConference[Onward! '24]{Proceedings of the 2024 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software}{October 23--25, 2024}{Pasadena, CA, USA}
 \acmBooktitle{Proceedings of the 2024 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software (Onward! '24), October 23--25, 2024, Pasadena, CA, USA}
 \acmSubmissionID{onward24essays-p7-p}
-\received{2024-04-25}
-\received[accepted]{2024-08-08}
+%\received{2024-04-25}
+%\received[accepted]{2024-08-08}
 
 %%
 %% end of the preamble, start of the body of the document source.
@@ -707,6 +707,57 @@ sufficiently compelling to make a case for trying out MDD, if you
 currently practice TDD.  Let me know if it works for you (or if you
 are an eager graduate student dying to turn this sketchy idea into a ``real'' paper)!
 
+
+\section{A Bigger Picture}
+
+If (it's a big if) MDD is a useful idea, I think it's a minor example
+of where we get many nice ideas:  cross-overs.  I don't ``do'' TDD and
+I think people who are interested in TDD in the research world are
+mostly (I would guess, I don't read much TDD literature) ``process''
+people.  I think ``process'' people who care about TDD probably think
+a lot about testing, but don't think very deeply about code coverage
+metrics (beyond the basic ``let's see what ran'') or the ``oracle
+problem'' because these ideas are mostly siloed into the ``tools and
+automated test generation'' part of the larger SE world.  I happened
+to start thinking about TDD because while I usually taught CS 362, the
+``testing and debugging'' class at Oregon State, one semester I was
+asked to do CS 361, the ``design and process'' class.  TDD seemed like
+the most ``hardcore testing people'' thing to learn for that class,
+and sounded interesting, even if I had no particular interest in
+agile/XP/any of that ``stuff.''  I didn't know at the time Grenning
+had a good book applying all this to the embedded world, which I
+\emph{did} care about.
+
+Because I'm always thinking about mutation and mutants, I wondered if
+TDD gave rise to really great mutation scores, since it not only
+encourages coverage, but pushes for code to be written in tandem with
+good functionality probes.  That mildly ``across disciplines'' thought
+gave rise to the notion of MDD.
+
+In her fascinating new history of the Renaissance~\cite{palmer}, Ada
+Palmer notes that ``major discoveries often come from someone studying
+a different topic asking new questions'' --- in her epistemological
+(and thus extremely pleasing to a ``testing guy'') version of history,
+this is a key to understanding:  you need to look at a ``thing'' from so many
+viewpoints that the connections between viewpoints become clear.  This
+can even expose ``new''
+facts (this event happened less than a week before
+this other similar event, and was done by the same guy, that means
+they are really \emph{part of the same story}) even where technically,
+everyone has ``known'' about the new facts forever, it's just that
+nobody ever actually \emph{looked} at those facts.  I think Jackson's
+point about research that is just hard to evaluate, or where the mashup of fields
+involved may make a Busy Professional Professor Researcher reluctant
+to do anything with a basic partly-out-of-my-field idea, comes into play here:  if the standards are
+always to be rooted in rigorous experimental work (RQs 1-6 evaluated
+using the right statistics and a compelling base of data from human
+subjects or mined from software repositories, pleasing to everyone on
+the ICSE PC!), we're going to miss those connections sometimes.
+That, in my opinion, even if MDD in particular isn't a very useful
+idea, is a shame.  Even if I'm not, \emph{the rest of you} are probably having lots of
+slightly out-of-band good ideas all the time, and I fear you're
+burying them because they don't quite fit the model of the way we do
+``research'' now.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography}
