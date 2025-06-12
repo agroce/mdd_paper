@@ -181,7 +181,7 @@ I (read: ``my lab'') don't really do human subjects; I don't ever want to
 write IRB paperwork.  I do work with \emph{other people} who do human subjects,
 from time to time; so I could potentially convince one of those
 wonderful folks that this is a good project, and thus avoid doing IRB
-paperwork and still make this a ``real'' paper.
+paperwork and still make this a real research paper.
 
 But I don't have a huge enough committment to Test
 Driven Development to get me excited enough to try to talk someone
@@ -211,7 +211,7 @@ for years, and I have wondered if TDD is unappealing precisely for the
 reasons that made me consider the idea of MDD, which are discussed
 below.  Perhaps if TDD delivered more of what it promised, it would be
 better, and more people I know would make use of it or some variation
-of it?  I don't particularly ``believe'' in TDD (but I also don't hate
+of it?  I don't particularly \emph{believe} in TDD (but I also don't hate
 the idea; it has a certain formal elegance and logic), but I do
 believe in mutation testing!  Furthermore, Dijkstra's ideas of proving small pieces of code correct are
 also seldom if ever practiced, and certainly not by anyone I know in industry; should we
@@ -229,7 +229,7 @@ kind of code analysis/test generation software I tend to write
 myself, or the kind of embedded or systems code (e.g. file systems and
 compilers) I
 tend to test.  The real value of the book was, for me, twofold:  first, the
-long long set of ``notes'' after the main text is a delightful random
+long long set of notes after the main text is a delightful random
 walk through software engineering.  Second, Jackson's musings include
 a major theme:  we've become too careful in the software engineering
 research community.  Given the heroic (for lazy computer scientists,
@@ -252,7 +252,7 @@ experimental support for claims about software engineering.  I don't
 have a strong opinion on how this worked out for more methdological
 aspects of SE, but for the most part the increased experimental
 validation (and, later, statistical sophistication, or at least competence) was necessary to
-make work in more ``technical'' parts of SE, such as software testing,
+make work in more technical parts of SE, such as software testing,
 trustworthy.  In a minor way, I think I helped encourage this trend in
 software testing, especialy under the influence of an unusually
 statistics-savvy and very capable graduate student, Rahul Gopinath
@@ -261,7 +261,7 @@ statistics-savvy and very capable graduate student, Rahul Gopinath
 However, this increased rigor was not without a cost:  some of the most important and
 influential papers in SE, as Jackson points out, did not rest on a
 basis of experimental support, in part because they were more raw
-``ideas'' than a narrower scientific claim.
+ideas than a narrower scientific claim.
 
 Now, many researchers take ideas that don't satisfy the current rules
 for \emph{proper} papers and turn them into blog posts or at least
@@ -433,7 +433,7 @@ particular behavior~\cite{Schuler2011AssessingOQ}.  For the most part,
 again, code is being written \emph{so that a test will pass, which is
   currently failing}.
 
-The problem is that checking one behavior of a ``piece'' of code
+The problem is that checking one behavior of a small piece of code
 doesn't mean you are checking all the desired behaviors; TDD forces
 you to write \emph{one} test that fails, that corresponds to every
 code-writing step.  Even at the fine granularity of TDD, however, most
@@ -443,8 +443,8 @@ naturally disinclined (because of the nature of which unit tests are
 easiest to write, and the
 derivation of the original failing test from a desire to add some new
 functionality, in most cases) to check that it doesn't do anythng
-undesirable, and that it satisfies more esoteric conditions ``off the
-path'' of developing functionality: e.g., that it fails in the ``right'' way when called with
+undesirable, and that it satisfies more esoteric conditions off the
+path of developing functionality: e.g., that it fails in the right way when called with
 invalid inputs.  Later, we'll see that this corresponds to knowing not
 just the shape of your code, but the shape of the invisble river of program
 states that your code has to make its way through as it actually runs.
@@ -612,12 +612,12 @@ rests on two empirical claims:
     examples, so this has \emph{no scientific validity}.  However, the
     results convinced me it was worth writing this paper.
 
-    I decided the best way to see if ``good'' TDD might benefit was to
+    I decided the best way to see if good TDD might benefit was to
     look at examples of people showing how TDD works.  If TDD-produced
     code by people \emph{showing off the process} had too many
     unkilled mutants for practical application, then MDD is probably
     overly burdensome (and, frankly, I wonder if TDD really works very
-    well at the job of producing decent tests); if ``exemplary'' TDD
+    well at the job of producing decent tests); if exemplary TDD
     on the other hand lacked interesting unkilled mutants, MDD is
     possibly useless, because the benefits will be limited.  You'll
     have to clean many mutants before you find any that actually
@@ -651,7 +651,7 @@ The code is organized into versions I extracted from the blog
 post, numbered {\tt v1} through {\tt v6}.  It's a good idea to look at
 the code in each of these directories and match it up to the code from
 the blog post before proceeding; this will give you an idea of the
-``lay of the land''.
+lay of the land.
  
     Then, to try out MDD, go into any directory, e.g. {\tt v3}, and type:
 
@@ -810,7 +810,7 @@ enlargements of the notion of the river a pilot has to carry about all
 inside poor Mark Twain's young head:  you thought you knew the river
 when you knew this (every bend and turn, every plantation and how it
 all looks at night when you can't really see it), but in fact you have
-to know \emph{this} as well (how to read the river's ``dynamics'' from
+to know \emph{this} as well (how to read the river's dynamics from
 the height of every single bank you see).  Figure \ref{fig:twain}
 shows two intrepid young software engineers beginning their
 first journey on a small but real piece of code, perhaps binary search; larger
@@ -824,7 +824,7 @@ in your head the map of how you got that coverage, painstaking loop of
 failure, then new code, then pass, and once more failure to code to pass) is the river's basic
 shape; mutation (MDD's addition) shows you part of the changing shape
 of the river as it runs as well; mutation is a \emph{text-driven} form
-of insight into the ``shape'' of the dynamic state space, not just the
+of insight into the shape of the dynamic state space, not just the
 ``textual space'' of the code.  The vision of TDD, as I see it, is to
 give a developer the confidence of an expert river pilot, not only the
 ability to avoid destroying a boat, but the bold power to still
@@ -837,27 +837,27 @@ don't know; someone will have to try it on the actual river.
 \section{A Bigger Picture}
 
 If (it's a big if) MDD is a useful idea, I think it's a minor example
-of where we get many nice ideas:  cross-overs.  I don't ``do'' TDD and
+of where we get many nice ideas:  cross-overs.  I don't do TDD and
 I think people who are interested in TDD in the research world are
-mostly (I would guess, I don't read much TDD literature) ``process''
-people.  I think ``process'' people who care about TDD probably think
+mostly (I would guess, I don't read much TDD literature) ``process people''
+people.  I think process people who care about TDD probably think
 a lot about testing, but don't think very deeply about code coverage
-metrics (beyond the basic ``let's see what ran'') or the ``oracle
-problem''~\cite{staats2011programs,oracleMcMinn} because these ideas are mostly siloed into the ``tools and
+metrics (beyond the basic ``let's see what ran'') or the oracle
+problem~\cite{staats2011programs,oracleMcMinn} because these ideas are mostly siloed into the ``tools and
 automated test generation'' part of the larger SE world.  I happened
 to start thinking about TDD because while I usually taught CS 362, the
 ``testing and debugging'' class at Oregon State, one semester I was
 asked to do CS 361, the ``design and process'' class.  TDD seemed like
 the most ``hardcore testing people'' thing to learn for that class,
 and sounded interesting, even if I had no particular interest in
-agile/XP/any of that ``stuff.''  I didn't know at the time Grenning
+agile/XP/any of that stuff.  I didn't know at the time Grenning
 had a very good book applying all this to the embedded world, which I
 \emph{did} care about.
 
 Because I'm always thinking about mutation and mutants, I wondered if
 TDD gave rise to really great mutation scores, since it not only
 encourages coverage, but pushes for code to be written in tandem with
-good functionality probes.  That mildly ``across disciplines''
+good functionality probes.  That mildly across disciplines
 thought, following an inspection of the mutation scores for 80+
 students over their TDD versions of KWIC,
 gave rise to the notion of MDD.  But TDD is in the ``process'' and
