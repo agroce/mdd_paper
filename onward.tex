@@ -188,7 +188,7 @@ Driven Development to get me excited enough to try to talk someone
 else into spending valuable research productivity time on this idea; I've never used
 TDD in writing code myself, and I'm not sure I even believe it's a good development
 practice!  Nobody I know and trust in the real software industry seems
-to do things in a TDD way, which is suggestive.  So it just doesn't
+to do things in a TDD way, which is worrying.  So it just doesn't
 seem worth it to commit to a serious Research Project, likely spanning
 over a year, just to explore this idea (I have lots of other ideas
 that I think are equally or more interesting, that I also don't have
@@ -203,24 +203,38 @@ ever became a paper.  They live only as obscure command line options
 to a tool increasingly few people are likely to ever use.  It's sad,
 but life is short, and I don't think any of those ideas are likely to
 be \emph{really} important, vs. somewhat, occasionally, useful.
-Perhaps that's the right approach with Mutation Driven Development, too.
+Perhaps that's the right approach with Mutation Driven Development,
+too.
+
+Still, I didn't \emph{want} to do that; this idea has been bugging me
+for years, and I have wondered if TDD is unappealing precisely for the
+reasons that made me consider the idea of MDD, which are discussed
+below.  Perhaps if TDD delivered more of what it promised, it would be
+better, and more people I know would make use of it or some variation
+of it?  I don't particularly ``believe'' in TDD (but I also don't hate
+the idea; it has a certain formal elegance and logic), but I do
+believe in mutation testing!  Furthermore, Dijkstra's ideas of proving small pieces of code correct are
+also seldom if ever practiced, and certainly not by anyone I know in industry; should we
+therefore throw them out?  Or work to make them practical and useful?
+I wondered about these bigger-picture questions, and didn't throw the idea out of my head, even if I didn't
+make any progress on it.
 
 \subsection{Daniel Jackson Made Me Do It}
 
 I recently read Daniel Jackson's \emph{The Essence of Software}~\cite{essence}, which
 is a very enjoyable book.  The supposed topic of the book is an
 approach to design that I thought was interesting, but that also seems
-more appropriate to UI-heavy software for ``normal people'' than the
+more appropriate to UI-heavy software than the
 kind of code analysis/test generation software I tend to write
 myself, or the kind of embedded or systems code (e.g. file systems and
 compilers) I
-like to test.  The real value of the book was, for me, twofold:  first, the
+tend to test.  The real value of the book was, for me, twofold:  first, the
 long long set of ``notes'' after the main text is a delightful random
 walk through software engineering.  Second, Jackson's musings include
 a major theme:  we've become too careful in the software engineering
 research community.  Given the heroic (for lazy computer scientists,
 at least;
-obviously almost every research project in SE is a joke compared to
+obviously many a research project in SE is not \emph{that} much work compared to
 the work of serious systems people, much less biologists or
 physicists) effort required for making Real Science that Has Six Good
 RQs and Makes it Past the ICSE Program Committee, we tend to drop
@@ -260,7 +274,12 @@ In the past I've written Onward! Essays when the topic was clearly not
 one suitable to a standard research paper.  This time, I'm writing an
 essay because that seems more responsible than writing a blog post,
 and a research paper minus the experimental evidence is just an
-essay.  The reader is free to try the idea out, with no guarantee that
+essay\footnote{This is a joke!  The related statement that an essay is
+  just a research paper missing experimental evidence is, of course,
+  even less true; an essay is a ``jackdaw, a magpie, a
+  raven''~\cite{doyleessay}, and while some good research papers contain the germs of
+  an essay, the two forms are generally distinct, not that you would
+  be so sure of that from the example at hand, the essay you are reading.}.  The reader is free to try the idea out, with no guarantee that
 it will work, but really --- we know that's the case with most
 research, as well, except in the most unusual of circumstances.  So,
 onward to the idea.
@@ -406,7 +425,7 @@ From my perspective, the problem is that this \emph{doesn't mean the
   code is extremely well tested}, which seems to be one of the core
 (at least implicit) claims of TDD.  Software testing people know that
 while code coverage is generally \emph{necessary} for good testing, it
-is far from \emph{sufficient}.  Now, the most glaring risk of code
+is far from \emph{sufficient}~\cite{Discontents,CleanCode}.  Admittedly, the \emph{most} glaring risk of code
 coverage \emph{is} obviated by TDD:  it is very hard, when using TDD's
 rule that \emph{first, you must see the test fail}, to write code
 that is run by tests, but not actually \emph{checked} for any
@@ -434,20 +453,26 @@ It seems plausible to reformulate one underlying goal of TDD as
 ``ensure that after every step of coding, the functionality thus far
 implemented is tested solidly enough that changes can be made in the
 expectation that bugs will have a hard time getting past the tests.''
-Code coverage is guaranteed to be high, but the implied syllogism that
-therefore this goal will be met.  However, code coverage is not the
+Code coverage is indeed guaranteed to be high, but the implied syllogism that
+\emph{therefore} this goal will be met (which I think much TDD
+literature does indirectly propose to the developer) relies on code coverage being potent
+enough to, at least for small-scope code, guarantee highly effective
+testing.  As we saw above, code coverage is important but too weak to
+make this kind of guarantee.
+
+However, code coverage is not the
 only way to measure test effectiveness!  A great many software testing
 researchers~\cite{JustMut,CleanCode,Discontents,MutationSurvey}, and a few high-profile software companies (e.g., Google,
 and Meta~\cite{PetrovicMutationGoogle,BellerFacebookMutation}) believe that \emph{mutation testing}~\cite{demillo1978hints,budd1979mutation} can provide a more
 powerful guarantee of test quality.  In mutation testing, the ability
 of tests to detect bugs is measured by injecting a large number of
-synthetic bugs, and seeing if they are indeed detected.  In mutation
+synthetic bugs, and seeing if they are detected.  In mutation
 testing lingo, a detected bug is ``killed'' and an undetected bug is
 ``not killed.''  Unkilled mutants are to mutation testing as uncovered
 lines of code are to code coverage:  the things a developer aiming at
 good tests should examine and probably fix.
 
-TDD probably, by construction, ensures high enough coverage that
+TDD by construction ensures high enough coverage that
 measuring coverage is likely to be fairly useless; the link betwen TDD
 and good mutation score, however, seems indirect enough that
 \emph{mutation score can serve as a good way to inform TDD
@@ -618,7 +643,13 @@ rests on two empirical claims:
  cd ~/mdd/pytestwitheric/
  \end{code}
 
-    Then go into any directory, say {\tt v3}, and type:
+The code is organized into ``versions'' I extracted from the blog
+post, numbered {\tt v1} through {\tt v6}.  It's a good idea to look at
+the code in each of these directories and match it up to the code from
+the blog post before proceeding; this will give you an idea of the
+``lay of the land''.
+ 
+    Then, to try out MDD, go into any directory, e.g. {\tt v3}, and type:
 
  \begin{code}
  cd v3
@@ -703,7 +734,13 @@ changing the {\tt enum} to incorrectly label the LEDs also can get
 past the tests (wrong numbering is a problem Grenning specifically
 calls out).  The tests \emph{mostly} catch these problems, but they
 don't catch \emph{all} of them.  And as far as I can tell, the mutants
-not killed all indicate these exact problems.
+not killed all indicate these exact problems.  Is looking at ten
+mutants a huge burden on a developer?  I think not, at least in this
+case.  As soon as you see one mutant showing bound checks aren't being
+fully probed, you probably will quit looking at mutants and proceed to
+strengthen the tests to cover bounds tests more effectively.  After
+that minor effort, the likely outcome (for this code) is 100\%
+mutation score.
 
 Perhaps these examples aren't typical, but I think they are
 sufficiently compelling to make a case for trying out MDD, if you
