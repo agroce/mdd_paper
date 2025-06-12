@@ -443,9 +443,11 @@ naturally disinclined (because of the nature of which unit tests are
 easiest to write, and the
 derivation of the original failing test from a desire to add some new
 functionality, in most cases) to check that it doesn't do anythng
-undesirable, and that is satisfies more esoteric conditions ``off the
+undesirable, and that it satisfies more esoteric conditions ``off the
 path'' of developing functionality: e.g., that it fails in the ``right'' way when called with
-invalid inputs.
+invalid inputs.  Later, we'll see that this corresponds to knowing not
+just the shape of your code, but the shape of the invisble river of program
+states that your code has to make its way through as it actually runs.
 
 \subsection{Enter the Mutants!}
 
@@ -489,7 +491,9 @@ many implementation files at once; in fact, you should probably only
 be modifying one at a time, most of the time.
 
 Thus we have a new, very slightly modified, approach to TDD, shown in
-Figure~\ref{fig:mdd}.
+Figure~\ref{fig:mdd} (I omit the step of coming up with a new
+behavior, because while this is essential it is \emph{outside the
+  loop}, and I want to emphasize the change in the \emph{loop}).
 
 \begin{figure}[h!]
   \centering
@@ -747,6 +751,86 @@ sufficiently compelling to make a case for trying out MDD, if you
 currently practice TDD.  Let me know if it works for you (or if you
 are an eager graduate student dying to turn this sketchy idea into a ``real'' paper)!
 
+\section{The Mighty River: A Digression}
+
+This is an essay (thus a jackdaw, magpie, raven~\cite{doyleessay}), not a research paper, so we can turn our minds aside
+for a moment.  The real reason I couldn't let MDD simply fall into the
+junkyard of never-pursued research ideas without making some effort to put it
+out in the world for serious consideration is that it fits into a
+larger vision I have of software engineering, or in particular, of
+``coding'' --- the kind of vision you
+can only talk very very briefly about in a research paper in a short lyrical passage in the
+introduction that still annoys at least one ICSE reviewer.
+
+Mark Twain's \emph{Life on the Mississippi} is one of the best books
+ever written.  And one thing it makes you \emph{see}, that you may
+never have seen before, if you haven't read it, is how a river pilot
+had to know the river.  Much of the first part of the book is taken up
+by the tale of young Clemens/Twain learning to be a river pilot; at
+first the task of knowing the ever-changing, infinitely complex, night
+and day and many-season Mississippi simply seems impossible.  And
+every time young Twain thinks, cockily, that he \emph{has} done this
+impossible thing, the irascible expert pilot Bixby tells him something
+else insanely difficult he has to know:
+
+\begin{quote}
+``Then I've got to work and learn just as much more river as I already
+know.''
+
+``Just about twice as much more, as near as you can come at it.''
+
+``Well, one lives to find out.  I think I was a fool when I went into
+this business.''
+
+``Yes, that is true.  And you are yet.  But you'll not be when you've
+learned it.''
+
+``Ah, I never can learn it.''
+
+``I will see that you DO.''
+\end{quote}
+
+This was written when the river had no lights or bouys, and we may
+think that it is fun to learn, but not very relevant to  our work, not
+being river pilots, and the world having advanced to add lights and
+buoys by the time Twain wrote, much less by our far future day.  But
+what Twain is really talking about is how well we have to know code,
+if we want it to be correct.  You have to know your code like a pilot
+knows the river; and the river is ever-changing and our code, itself,
+and the context it lives in, is ever-changing.
+
+\begin{figure}
+  \includegraphics[width=\columnwidth]{twain.jpg}
+  \caption{Illustration from 1883 J. R. Osgood and co. edition of Mark
+  Twain's \emph{Life on the Mississippi}, source \url{https://renopenrose.getarchive.net/media/44-of-life-on-the-mississippi-by-mark-twain-samuel-l-clemens-with-more-than-bef073}}
+  \label{fig:twain}
+  \end{figure}
+
+I think the change in point of view from code coverage (handled by
+TDD) to mutation (added by MDD) is like one of those sudden
+enlargements of the notion of the river a pilot has to carry about all
+inside poor Mark Twain's young head:  you thought you knew the river
+when you knew this (every bend and turn, every plantation and how it
+all looks at night when you can't really see it), but in fact you have
+to know \emph{this} as well (how to read the river's ``dynamics'' from
+the height of every single bank you see).  Figure \ref{fig:twain}
+shows what happens to those who do not know the river well enough, or
+at least to the users of their software.
+
+Coverage (TDD's forte; you not only have good coverage, but you have
+in your head the map of how you got that coverage, painstaking loop of
+failure, then new code, then pass, and once more failure to code to pass) is the river's basic
+shape; mutation (MDD's addition) shows you part of the changing shape
+of the river as it runs as well; mutation is a \emph{text-driven} form
+of insight into the ``shape'' of the dynamic state space, not just the
+``textual space'' of the code.  The vision of TDD, as I see it, is to
+give a developer the confidence of an expert river pilot, not only the
+ability to avoid destroying a boat, but the bold power to still
+maintain speed while maintaining safety.  The ideal of the process of
+TDD is to embody the teacher Bixby as a process to be followed; the
+promise of MDD is to make Bixby as demanding as the real Bixby Twain
+wrote about, and to make TDD form real river pilots.  Does it work?  I
+don't know; someone will have to try it on the actual river.
 
 \section{A Bigger Picture}
 
