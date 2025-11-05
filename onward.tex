@@ -177,7 +177,7 @@ frame the whole essay in a way that does a much better job of
 satisfying what reviewers wanted from the version you read here; putting
 together this text (which I am told was viewed as enjoyable, by some
 reviewers, but as missing the point of the requested corrections)
-\emph{and the Postscript}, you get an essay that talks about a core issue that I think is
+\emph{and the Postscripts}, you get an essay that talks about a core issue that I think is
 important to talk about here, and that (more importantly, for
 publication purposes) the reviewers viewed as the essence of this essay.
 
@@ -915,13 +915,76 @@ slightly out-of-band good ideas all the time, and I fear you're
 burying them because they don't quite fit the model of the way we do
 ``research'' now.
 
+\section{First Postscript}
+
+I should really have added a bit more evidence for MDD, as one
+reviewer requested; not first-class research paper level evidence, but
+something more to suggest that MDD might be interesting.
+
+I half-joked above about doing experiments on MDD without humans via asking
+LLMs to write code using normal TDD and MDD, and seeing how the two
+compared.  I think this isn't actually, at least right now, a good
+idea for a real paper on MDD, at least MDD for humans.  The way LLMs
+write code is sufficiently alien that even if MDD helps an LLM, it's
+unclear this means it actually helps humans, or even clear that MDD
+itself is the key:  simply mentioning mutants might shift the input's
+position in ``token space'' enough to produce better results.
+
+Nonetheless, it's not the worst idea, and it's very easy to do a tiny
+experiment along these lines.  In
+the {\texttt agroce/mdd} repository are the results of asking
+anonymous non-logged-in fresh ChatGPT instances to solve a simple problem
+(chosen truly at random by using the first programming task of a modest
+scope I heard anyone mention, over the next day) eight
+times.  All eight times the prompt instructed ChatGPT to apply TDD,
+but four of the prompts asked ChatGPT to also apply
+MDD.  I will note that ChatGPT's notion of ``mutant'' was sometimes
+not traditional mutation testing, but ``small variants'' of the code
+it came up with that invovled more than the usual single-token
+modification.  I suspect this may be part of the future of mutation
+testing, and ``check for a generated set of bugs'' is the heart of
+MDD, not a particular set of mutation operators.  I view ``ask an LLM
+to inject a bug at random'' as an expensive, untried, mutation
+operator but a perfectly reasonable one for many uses of mutation testing.
+
+The resulting code was of mixed nature, thoroughness, and used a
+variety of names; the tests for the code also varied considerably.  Interestingly, in two of the non-mutant cases, the code
+was also \emph{wrong}.  In one of those two cases, the code actually had a test that
+caught the error; in the other case, the pure-TDD tests passed, but the code
+was wrong\footnote{If you look at the prompt in the repository or
+  docker image, the issue is that when given a list with duplicate
+  paths, the incorrect versions can return duplicate paths, instead of
+  just returning one copy of each directory, {\tt f(["A/B", "A/B"]) ==
+    ["A/B", "A/B"]}.}.  All other implementations were, as far as I
+could determine, completely correct (the fairly thorough TDD test suites, all of which passed,
+helped check this, and I manually confirmed the duplicate bug found in
+the two pure-TDD versions was not present in any of the six other implementations).  Is this remotely
+conclusive?  Obviously not. For one thing, for a real experiment,
+you'd want to run this dozens of times, on a variety of LLM models and
+over a large number of programming problems of various sizes (this one
+is implementable by a single very simple function if you take the
+prompt narrowly, and can make use of an auxillary function or two if
+the LLM decides to be ambitious).
+
+However, I think it's a small, independent, confirmation that MDD
+might be worth exploring.  Who knows, perhaps it's useless for humans,
+but asking LLMs to consider program mutants when co-designing code and
+tests helps keep the LLM from missing simple bugs!  I feel that further
+elaborating the experiment with more programming problems and more
+generations of each kind would undermine the point of this essay,
+however, and might lure me into just making this a workshop paper at
+Mutation 2026, so I stopped at four experiments per ``treatment,''
+while things are safely
+statistically meaningless.
+
 \section{(Concluding Unscientific) Postscript}
 
 Ok!  You've read the rejected revision now.  Why was it rejected?  The
 reviewers fundamentally wanted me to do a few things (tone down a few
 bad jokes, which I did, fix some typos, which I did, and introduce
 some more experimental indication, however cursory, that MDD might be
-a good idea, which I don't really think I did), but mostly they wanted
+a good idea, which I don't really think I did very well, and which I
+have addressed in the first postscript), but mostly they wanted
 more on the problem of \emph{going outside your research comfort
   zone.}  Now, that I consider this work going outside my zone at all
 says something disconcerting about either me or the field:  this is a
@@ -937,7 +1000,16 @@ methodological (people experiments!  uh oh!) more than subject matter.
 The essay above talks about the reasons for either abandoning such
 potentially high-effort, low-payoff work in a scientific career.  I
 think one way to look at is as a narrow, within-scientist, version of
-working inside a Kuhn-style ``normal science'' paradigm or
+working inside a Kuhn-style ``normal science''
+paradigm\footnote{Technically, the use I'm making here of Kuhn is more
+  appropriately based on Lakatos' notion of ``research programme'' or
+  Laudan's notion of a
+  ``research tradition,'' but everyone has heard of and has an idea of
+  what Kuhn said, and few people have read Lakatos or Laudan, unless
+  they have a specialist's interest in the philosophy of
+  science~\cite{godfrey2009theory}, and for the metaphor the
+  distinctions don't
+  matter that much.} or
 facing up to a crisis inducing revolutionary
 science~\cite{kuhn1997structure}.  This is a huge, complex topic, and
 I'm more of a Karl Popper man myself (working scientists may tend to
