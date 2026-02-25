@@ -106,10 +106,6 @@
 %%
 %% The abstract is a short summary of the work to be presented in the
 %% article.
-\begin{abstract}
-
-\end{abstract}
-
 \begin{CCSXML}
 <ccs2012>
 <concept>
@@ -151,6 +147,8 @@ mutation score, without a painful effort to ``patch up'' an inadequate
 testing effort, and a TDD approach that includes automated checks that
 the letter and spirit of TDD are truly being respected, with the
 benefits of TDD presumably following in due course.
+
+This essay uses the idea of MDD (Mutation Driven Development) as a point of departure from which to explore weaknesses in the motivation, dissemenation, and evaluation of software engineering research, as a result of well-intentioned quality gatekeeping (and less laudable barriers between ``lanes'' of software engineering research styles).
   \end{abstract}
 
 
@@ -373,7 +371,7 @@ vary, but I think can be summarized as:
     of with TDD, but Beck's extremely influential book~\cite{beck2002test} really focuses
     on this.  You never get stuck!  You always have confidence!  You
     are making progress at all times.  Even if you can't actually
-    implement the funcitonality at the moment (you haven't figured out
+    implement the functionality at the moment (you haven't figured out
     how), TDD lets you write a \emph{useful test} and gives you
     permission to produce a \emph{passing,
       but fake, implementation} and thus have accomplished something.
@@ -406,7 +404,11 @@ vary, but I think can be summarized as:
             will produce better overall designs.
             \end{itemize}
 
-My personal experience with TDD consists of:  (1) reading Beck's book
+My personal experience with TDD consists of:  (1) reading excellent Beck's
+book\footnote{Since the first version of this essay was published, I
+  also had a wonderful opportunity to sit down to talk with Kent Beck
+  one-on-one for over an hour, and we talked about his work at length, but
+ ended up spending surprisingly little time on TDD itself.}
 as well as
 Grenning's excellent book on TDD for embedded systems~\cite{grenning},
 plus a few random papers on the topic (I have forgotten which ones),
@@ -659,7 +661,7 @@ rests on two empirical claims:
     (\url{https://github.com/agroce/mdd/tree/main/pytestwitheric}).  I
     used my own mutation testing tool, the Universal
     Mutator~\cite{SyntaxUM}
-    (\url{https://github.com/agroce/universalmutator}, to generate
+    (\url{https://github.com/agroce/universalmutator}), to generate
     mutants.
 
     If you want to follow along at home, the easiest way to do so is
@@ -941,7 +943,7 @@ times.  All eight times the prompt instructed ChatGPT to apply TDD,
 but four of the prompts asked ChatGPT to also apply
 MDD.  I will note that ChatGPT's notion of ``mutant'' was sometimes
 not traditional mutation testing, but ``small variants'' of the code
-it came up with that invovled more than the usual single-token
+it came up with that involved more than the usual single-token
 modification.  I suspect this may be part of the future of mutation
 testing, and ``check for a generated set of bugs'' is the heart of
 MDD, not a particular set of mutation operators.  I view ``ask an LLM
@@ -1151,7 +1153,7 @@ In short this essay argues:
     ideas clearly called for, and could be supported or refuted by,
     experimental or observational data.
     \item This resulted in a large number of weakly supported (and
-      likely false claims) but also gave room for a nascent field to
+      likely false) claims but also gave room for a nascent field to
       explore hard-to-evaluate ideas that have had a foundational
       impact on software engineering.
       \item With maturity, subfields, particularly those where fully
